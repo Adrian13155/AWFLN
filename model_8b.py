@@ -292,3 +292,14 @@ class AFLB(nn.Module):
         y = y.permute([0, 2, 1])  # b,m,n_H*n_W
         y = F.fold(y, output_size=(n_H, n_W), kernel_size=1)  # b,m,n_H,n_W
         return y
+
+if __name__ == '__main__':
+    torch.cuda.set_device(0)
+    model=AWFLN(4).cuda()
+    ms =  torch.rand(1, 8, 128, 128).cuda()
+    lms = torch.rand(1, 8, 32, 32).cuda()
+    pan = torch.rand(1, 1, 128, 128).cuda()
+    output = model(ms, lms,pan)
+
+    print("output: ",output.shape)
+    print(sum(p.numel() for p in model.parameters() )/1e6, "M") 
