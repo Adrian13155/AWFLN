@@ -1,0 +1,231 @@
+[2025-04-29 13:30:54,452][train_pansharpening.py][line:62][INFO] Namespace(batch_size=16, epoch_start=0, exp_name='LAGConvForWV2', gpu_id=1, learning_rate=0.0005, num_epochs=1000, pan_root='/PublicData/xmm/NBU_dataset0730', satellite='WV2', save_dir='/PublicData/xmm/project/AWFLN/experiment', total_iteration=200000.0)
+[2025-04-29 13:30:54,452][train_pansharpening.py][line:63][INFO] model params: 0.174383 M
+[2025-04-29 13:30:54,453][train_pansharpening.py][line:64][INFO] Network Structure: AWFLN(
+  (blk_9_30_3): Sequential(
+    (0): Conv2d(9, 30, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): PReLU(num_parameters=1)
+  )
+  (blk_8_30_3): Sequential(
+    (0): Conv2d(8, 30, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): PReLU(num_parameters=1)
+  )
+  (blk2): Sequential(
+    (0): Conv2d(60, 30, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): PReLU(num_parameters=1)
+  )
+  (up_sample4): UpsampleBLock(
+    (conv): Conv2d(8, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (pixel_shuffle): PixelShuffle(upscale_factor=4)
+    (prelu): PReLU(num_parameters=1)
+  )
+  (up_sample2): UpsampleBLock(
+    (conv): Conv2d(8, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (pixel_shuffle): PixelShuffle(upscale_factor=2)
+    (prelu): PReLU(num_parameters=1)
+  )
+  (conv6): Conv2d(30, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (lu_block1): RMRS(
+    (conv2_1): Conv2d(60, 20, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv2_2): Conv2d(60, 20, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+    (conv2_3): Conv2d(60, 20, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3), dilation=(3, 3))
+    (conv3_1): AFLB(
+      (attention1): Sequential(
+        (0): Conv2d(60, 9, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): SoftAttn(
+          (spatial_attn): SpatialAttention(
+            (conv1): Conv2d(2, 1, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), bias=False)
+            (sigmoid): Sigmoid()
+          )
+          (channel_attn): Eca_layer(
+            (max_pool): AdaptiveMaxPool2d(output_size=1)
+            (conv): Conv1d(1, 1, kernel_size=(7,), stride=(1,), padding=(3,), bias=False)
+            (sigmoid): Sigmoid()
+          )
+          (conv): ConvLayer(
+            (main): Sequential(
+              (0): Conv2d(9, 9, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (1): BatchNorm2d(9, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+          )
+        )
+      )
+    )
+    (conv3_2): AFLB(
+      (attention1): Sequential(
+        (0): Conv2d(60, 9, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): SoftAttn(
+          (spatial_attn): SpatialAttention(
+            (conv1): Conv2d(2, 1, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), bias=False)
+            (sigmoid): Sigmoid()
+          )
+          (channel_attn): Eca_layer(
+            (max_pool): AdaptiveMaxPool2d(output_size=1)
+            (conv): Conv1d(1, 1, kernel_size=(7,), stride=(1,), padding=(3,), bias=False)
+            (sigmoid): Sigmoid()
+          )
+          (conv): ConvLayer(
+            (main): Sequential(
+              (0): Conv2d(9, 9, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (1): BatchNorm2d(9, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+          )
+        )
+      )
+    )
+    (relu): ReLU(inplace=True)
+  )
+  (lu_block2): RMRS(
+    (conv2_1): Conv2d(30, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv2_2): Conv2d(30, 10, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+    (conv2_3): Conv2d(30, 10, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3), dilation=(3, 3))
+    (conv3_1): AFLB(
+      (attention1): Sequential(
+        (0): Conv2d(30, 9, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): SoftAttn(
+          (spatial_attn): SpatialAttention(
+            (conv1): Conv2d(2, 1, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), bias=False)
+            (sigmoid): Sigmoid()
+          )
+          (channel_attn): Eca_layer(
+            (max_pool): AdaptiveMaxPool2d(output_size=1)
+            (conv): Conv1d(1, 1, kernel_size=(7,), stride=(1,), padding=(3,), bias=False)
+            (sigmoid): Sigmoid()
+          )
+          (conv): ConvLayer(
+            (main): Sequential(
+              (0): Conv2d(9, 9, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (1): BatchNorm2d(9, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+          )
+        )
+      )
+    )
+    (conv3_2): AFLB(
+      (attention1): Sequential(
+        (0): Conv2d(30, 9, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): SoftAttn(
+          (spatial_attn): SpatialAttention(
+            (conv1): Conv2d(2, 1, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), bias=False)
+            (sigmoid): Sigmoid()
+          )
+          (channel_attn): Eca_layer(
+            (max_pool): AdaptiveMaxPool2d(output_size=1)
+            (conv): Conv1d(1, 1, kernel_size=(7,), stride=(1,), padding=(3,), bias=False)
+            (sigmoid): Sigmoid()
+          )
+          (conv): ConvLayer(
+            (main): Sequential(
+              (0): Conv2d(9, 9, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+              (1): BatchNorm2d(9, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+              (2): ReLU()
+            )
+          )
+        )
+      )
+    )
+    (relu): ReLU(inplace=True)
+  )
+)
+[2025-04-29 13:31:38,533][train_pansharpening.py][line:126][INFO] Epoch:[0]	 PSNR_WV2 = 34.1769	 BEST_PSNR = 34.1769	 BEST_epoch = 0
+[2025-04-29 13:38:31,268][train_pansharpening.py][line:126][INFO] Epoch:[10]	 PSNR_WV2 = 39.3010	 BEST_PSNR = 39.3010	 BEST_epoch = 10
+[2025-04-29 13:45:32,487][train_pansharpening.py][line:126][INFO] Epoch:[20]	 PSNR_WV2 = 39.5888	 BEST_PSNR = 39.5888	 BEST_epoch = 20
+[2025-04-29 13:52:29,601][train_pansharpening.py][line:126][INFO] Epoch:[30]	 PSNR_WV2 = 39.7893	 BEST_PSNR = 39.7893	 BEST_epoch = 30
+[2025-04-29 13:59:23,372][train_pansharpening.py][line:126][INFO] Epoch:[40]	 PSNR_WV2 = 39.9287	 BEST_PSNR = 39.9287	 BEST_epoch = 40
+[2025-04-29 14:06:22,687][train_pansharpening.py][line:126][INFO] Epoch:[50]	 PSNR_WV2 = 39.9676	 BEST_PSNR = 39.9676	 BEST_epoch = 50
+[2025-04-29 14:13:21,150][train_pansharpening.py][line:126][INFO] Epoch:[60]	 PSNR_WV2 = 40.0414	 BEST_PSNR = 40.0414	 BEST_epoch = 60
+[2025-04-29 14:20:13,916][train_pansharpening.py][line:126][INFO] Epoch:[70]	 PSNR_WV2 = 40.0585	 BEST_PSNR = 40.0585	 BEST_epoch = 70
+[2025-04-29 14:27:10,091][train_pansharpening.py][line:126][INFO] Epoch:[80]	 PSNR_WV2 = 40.1145	 BEST_PSNR = 40.1145	 BEST_epoch = 80
+[2025-04-29 14:34:08,409][train_pansharpening.py][line:126][INFO] Epoch:[90]	 PSNR_WV2 = 40.1337	 BEST_PSNR = 40.1337	 BEST_epoch = 90
+[2025-04-29 14:41:04,758][train_pansharpening.py][line:126][INFO] Epoch:[100]	 PSNR_WV2 = 40.1632	 BEST_PSNR = 40.1632	 BEST_epoch = 100
+[2025-04-29 14:48:04,544][train_pansharpening.py][line:126][INFO] Epoch:[110]	 PSNR_WV2 = 40.1973	 BEST_PSNR = 40.1973	 BEST_epoch = 110
+[2025-04-29 14:54:57,362][train_pansharpening.py][line:126][INFO] Epoch:[120]	 PSNR_WV2 = 40.2280	 BEST_PSNR = 40.2280	 BEST_epoch = 120
+[2025-04-29 15:01:54,689][train_pansharpening.py][line:126][INFO] Epoch:[130]	 PSNR_WV2 = 40.2667	 BEST_PSNR = 40.2667	 BEST_epoch = 130
+[2025-04-29 15:08:52,374][train_pansharpening.py][line:126][INFO] Epoch:[140]	 PSNR_WV2 = 40.2944	 BEST_PSNR = 40.2944	 BEST_epoch = 140
+[2025-04-29 15:15:46,925][train_pansharpening.py][line:126][INFO] Epoch:[150]	 PSNR_WV2 = 40.2849	 BEST_PSNR = 40.2944	 BEST_epoch = 140
+[2025-04-29 15:22:41,723][train_pansharpening.py][line:126][INFO] Epoch:[160]	 PSNR_WV2 = 40.3250	 BEST_PSNR = 40.3250	 BEST_epoch = 160
+[2025-04-29 15:29:35,451][train_pansharpening.py][line:126][INFO] Epoch:[170]	 PSNR_WV2 = 40.2590	 BEST_PSNR = 40.3250	 BEST_epoch = 160
+[2025-04-29 15:36:29,553][train_pansharpening.py][line:126][INFO] Epoch:[180]	 PSNR_WV2 = 40.3348	 BEST_PSNR = 40.3348	 BEST_epoch = 180
+[2025-04-29 15:43:28,149][train_pansharpening.py][line:126][INFO] Epoch:[190]	 PSNR_WV2 = 40.3636	 BEST_PSNR = 40.3636	 BEST_epoch = 190
+[2025-04-29 15:50:20,345][train_pansharpening.py][line:126][INFO] Epoch:[200]	 PSNR_WV2 = 40.3139	 BEST_PSNR = 40.3636	 BEST_epoch = 190
+[2025-04-29 15:57:17,944][train_pansharpening.py][line:126][INFO] Epoch:[210]	 PSNR_WV2 = 40.2079	 BEST_PSNR = 40.3636	 BEST_epoch = 190
+[2025-04-29 16:04:16,057][train_pansharpening.py][line:126][INFO] Epoch:[220]	 PSNR_WV2 = 40.4011	 BEST_PSNR = 40.4011	 BEST_epoch = 220
+[2025-04-29 16:11:15,191][train_pansharpening.py][line:126][INFO] Epoch:[230]	 PSNR_WV2 = 40.3752	 BEST_PSNR = 40.4011	 BEST_epoch = 220
+[2025-04-29 16:18:11,693][train_pansharpening.py][line:126][INFO] Epoch:[240]	 PSNR_WV2 = 40.4402	 BEST_PSNR = 40.4402	 BEST_epoch = 240
+[2025-04-29 16:25:06,700][train_pansharpening.py][line:126][INFO] Epoch:[250]	 PSNR_WV2 = 40.4200	 BEST_PSNR = 40.4402	 BEST_epoch = 240
+[2025-04-29 16:32:14,739][train_pansharpening.py][line:126][INFO] Epoch:[260]	 PSNR_WV2 = 40.4059	 BEST_PSNR = 40.4402	 BEST_epoch = 240
+[2025-04-29 16:39:13,877][train_pansharpening.py][line:126][INFO] Epoch:[270]	 PSNR_WV2 = 40.4477	 BEST_PSNR = 40.4477	 BEST_epoch = 270
+[2025-04-29 16:46:08,996][train_pansharpening.py][line:126][INFO] Epoch:[280]	 PSNR_WV2 = 40.4527	 BEST_PSNR = 40.4527	 BEST_epoch = 280
+[2025-04-29 16:53:01,613][train_pansharpening.py][line:126][INFO] Epoch:[290]	 PSNR_WV2 = 40.5025	 BEST_PSNR = 40.5025	 BEST_epoch = 290
+[2025-04-29 16:59:59,335][train_pansharpening.py][line:126][INFO] Epoch:[300]	 PSNR_WV2 = 40.4625	 BEST_PSNR = 40.5025	 BEST_epoch = 290
+[2025-04-29 17:06:56,950][train_pansharpening.py][line:126][INFO] Epoch:[310]	 PSNR_WV2 = 40.5093	 BEST_PSNR = 40.5093	 BEST_epoch = 310
+[2025-04-29 17:13:50,893][train_pansharpening.py][line:126][INFO] Epoch:[320]	 PSNR_WV2 = 40.4970	 BEST_PSNR = 40.5093	 BEST_epoch = 310
+[2025-04-29 17:20:46,061][train_pansharpening.py][line:126][INFO] Epoch:[330]	 PSNR_WV2 = 40.5139	 BEST_PSNR = 40.5139	 BEST_epoch = 330
+[2025-04-29 17:27:44,816][train_pansharpening.py][line:126][INFO] Epoch:[340]	 PSNR_WV2 = 40.5326	 BEST_PSNR = 40.5326	 BEST_epoch = 340
+[2025-04-29 17:34:38,792][train_pansharpening.py][line:126][INFO] Epoch:[350]	 PSNR_WV2 = 40.5083	 BEST_PSNR = 40.5326	 BEST_epoch = 340
+[2025-04-29 17:41:35,763][train_pansharpening.py][line:126][INFO] Epoch:[360]	 PSNR_WV2 = 40.5263	 BEST_PSNR = 40.5326	 BEST_epoch = 340
+[2025-04-29 17:48:33,549][train_pansharpening.py][line:126][INFO] Epoch:[370]	 PSNR_WV2 = 40.5313	 BEST_PSNR = 40.5326	 BEST_epoch = 340
+[2025-04-29 17:55:27,185][train_pansharpening.py][line:126][INFO] Epoch:[380]	 PSNR_WV2 = 40.5119	 BEST_PSNR = 40.5326	 BEST_epoch = 340
+[2025-04-29 18:02:24,117][train_pansharpening.py][line:126][INFO] Epoch:[390]	 PSNR_WV2 = 40.5244	 BEST_PSNR = 40.5326	 BEST_epoch = 340
+[2025-04-29 18:09:20,498][train_pansharpening.py][line:126][INFO] Epoch:[400]	 PSNR_WV2 = 40.5272	 BEST_PSNR = 40.5326	 BEST_epoch = 340
+[2025-04-29 18:16:12,639][train_pansharpening.py][line:126][INFO] Epoch:[410]	 PSNR_WV2 = 40.5316	 BEST_PSNR = 40.5326	 BEST_epoch = 340
+[2025-04-29 18:23:10,760][train_pansharpening.py][line:126][INFO] Epoch:[420]	 PSNR_WV2 = 40.5451	 BEST_PSNR = 40.5451	 BEST_epoch = 420
+[2025-04-29 18:30:06,275][train_pansharpening.py][line:126][INFO] Epoch:[430]	 PSNR_WV2 = 40.5462	 BEST_PSNR = 40.5462	 BEST_epoch = 430
+[2025-04-29 18:36:59,074][train_pansharpening.py][line:126][INFO] Epoch:[440]	 PSNR_WV2 = 40.5277	 BEST_PSNR = 40.5462	 BEST_epoch = 430
+[2025-04-29 18:43:52,484][train_pansharpening.py][line:126][INFO] Epoch:[450]	 PSNR_WV2 = 40.5396	 BEST_PSNR = 40.5462	 BEST_epoch = 430
+[2025-04-29 18:50:47,518][train_pansharpening.py][line:126][INFO] Epoch:[460]	 PSNR_WV2 = 40.5069	 BEST_PSNR = 40.5462	 BEST_epoch = 430
+[2025-04-29 18:57:40,705][train_pansharpening.py][line:126][INFO] Epoch:[470]	 PSNR_WV2 = 40.5759	 BEST_PSNR = 40.5759	 BEST_epoch = 470
+[2025-04-29 19:04:33,806][train_pansharpening.py][line:126][INFO] Epoch:[480]	 PSNR_WV2 = 40.5644	 BEST_PSNR = 40.5759	 BEST_epoch = 470
+[2025-04-29 19:11:28,478][train_pansharpening.py][line:126][INFO] Epoch:[490]	 PSNR_WV2 = 40.5658	 BEST_PSNR = 40.5759	 BEST_epoch = 470
+[2025-04-29 19:18:21,711][train_pansharpening.py][line:126][INFO] Epoch:[500]	 PSNR_WV2 = 40.5998	 BEST_PSNR = 40.5998	 BEST_epoch = 500
+[2025-04-29 19:25:21,230][train_pansharpening.py][line:126][INFO] Epoch:[510]	 PSNR_WV2 = 40.5911	 BEST_PSNR = 40.5998	 BEST_epoch = 500
+[2025-04-29 19:32:16,550][train_pansharpening.py][line:126][INFO] Epoch:[520]	 PSNR_WV2 = 40.5924	 BEST_PSNR = 40.5998	 BEST_epoch = 500
+[2025-04-29 19:39:08,781][train_pansharpening.py][line:126][INFO] Epoch:[530]	 PSNR_WV2 = 40.5891	 BEST_PSNR = 40.5998	 BEST_epoch = 500
+[2025-04-29 19:46:01,521][train_pansharpening.py][line:126][INFO] Epoch:[540]	 PSNR_WV2 = 40.5751	 BEST_PSNR = 40.5998	 BEST_epoch = 500
+[2025-04-29 19:52:56,451][train_pansharpening.py][line:126][INFO] Epoch:[550]	 PSNR_WV2 = 40.5517	 BEST_PSNR = 40.5998	 BEST_epoch = 500
+[2025-04-29 19:59:51,518][train_pansharpening.py][line:126][INFO] Epoch:[560]	 PSNR_WV2 = 40.6094	 BEST_PSNR = 40.6094	 BEST_epoch = 560
+[2025-04-29 20:06:42,290][train_pansharpening.py][line:126][INFO] Epoch:[570]	 PSNR_WV2 = 40.5879	 BEST_PSNR = 40.6094	 BEST_epoch = 560
+[2025-04-29 20:13:35,932][train_pansharpening.py][line:126][INFO] Epoch:[580]	 PSNR_WV2 = 40.5211	 BEST_PSNR = 40.6094	 BEST_epoch = 560
+[2025-04-29 20:20:30,702][train_pansharpening.py][line:126][INFO] Epoch:[590]	 PSNR_WV2 = 40.5662	 BEST_PSNR = 40.6094	 BEST_epoch = 560
+[2025-04-29 20:27:23,630][train_pansharpening.py][line:126][INFO] Epoch:[600]	 PSNR_WV2 = 40.6057	 BEST_PSNR = 40.6094	 BEST_epoch = 560
+[2025-04-29 20:34:15,835][train_pansharpening.py][line:126][INFO] Epoch:[610]	 PSNR_WV2 = 40.6064	 BEST_PSNR = 40.6094	 BEST_epoch = 560
+[2025-04-29 20:41:08,883][train_pansharpening.py][line:126][INFO] Epoch:[620]	 PSNR_WV2 = 40.6154	 BEST_PSNR = 40.6154	 BEST_epoch = 620
+[2025-04-29 20:48:00,789][train_pansharpening.py][line:126][INFO] Epoch:[630]	 PSNR_WV2 = 40.6093	 BEST_PSNR = 40.6154	 BEST_epoch = 620
+[2025-04-29 20:54:55,519][train_pansharpening.py][line:126][INFO] Epoch:[640]	 PSNR_WV2 = 40.6067	 BEST_PSNR = 40.6154	 BEST_epoch = 620
+[2025-04-29 21:01:46,516][train_pansharpening.py][line:126][INFO] Epoch:[650]	 PSNR_WV2 = 40.6138	 BEST_PSNR = 40.6154	 BEST_epoch = 620
+[2025-04-29 21:08:37,671][train_pansharpening.py][line:126][INFO] Epoch:[660]	 PSNR_WV2 = 40.5859	 BEST_PSNR = 40.6154	 BEST_epoch = 620
+[2025-04-29 21:15:31,198][train_pansharpening.py][line:126][INFO] Epoch:[670]	 PSNR_WV2 = 40.6290	 BEST_PSNR = 40.6290	 BEST_epoch = 670
+[2025-04-29 21:22:25,812][train_pansharpening.py][line:126][INFO] Epoch:[680]	 PSNR_WV2 = 40.5945	 BEST_PSNR = 40.6290	 BEST_epoch = 670
+[2025-04-29 21:29:21,694][train_pansharpening.py][line:126][INFO] Epoch:[690]	 PSNR_WV2 = 40.5876	 BEST_PSNR = 40.6290	 BEST_epoch = 670
+[2025-04-29 21:36:15,697][train_pansharpening.py][line:126][INFO] Epoch:[700]	 PSNR_WV2 = 40.6220	 BEST_PSNR = 40.6290	 BEST_epoch = 670
+[2025-04-29 21:43:13,470][train_pansharpening.py][line:126][INFO] Epoch:[710]	 PSNR_WV2 = 40.6373	 BEST_PSNR = 40.6373	 BEST_epoch = 710
+[2025-04-29 21:50:05,173][train_pansharpening.py][line:126][INFO] Epoch:[720]	 PSNR_WV2 = 40.6137	 BEST_PSNR = 40.6373	 BEST_epoch = 710
+[2025-04-29 21:56:59,622][train_pansharpening.py][line:126][INFO] Epoch:[730]	 PSNR_WV2 = 40.6283	 BEST_PSNR = 40.6373	 BEST_epoch = 710
+[2025-04-29 22:03:52,738][train_pansharpening.py][line:126][INFO] Epoch:[740]	 PSNR_WV2 = 40.6316	 BEST_PSNR = 40.6373	 BEST_epoch = 710
+[2025-04-29 22:10:45,741][train_pansharpening.py][line:126][INFO] Epoch:[750]	 PSNR_WV2 = 40.6299	 BEST_PSNR = 40.6373	 BEST_epoch = 710
+[2025-04-29 22:17:39,175][train_pansharpening.py][line:126][INFO] Epoch:[760]	 PSNR_WV2 = 40.6534	 BEST_PSNR = 40.6534	 BEST_epoch = 760
+[2025-04-29 22:24:34,333][train_pansharpening.py][line:126][INFO] Epoch:[770]	 PSNR_WV2 = 40.6453	 BEST_PSNR = 40.6534	 BEST_epoch = 760
+[2025-04-29 22:31:28,732][train_pansharpening.py][line:126][INFO] Epoch:[780]	 PSNR_WV2 = 40.5932	 BEST_PSNR = 40.6534	 BEST_epoch = 760
+[2025-04-29 22:38:23,375][train_pansharpening.py][line:126][INFO] Epoch:[790]	 PSNR_WV2 = 40.6592	 BEST_PSNR = 40.6592	 BEST_epoch = 790
+[2025-04-29 22:45:21,303][train_pansharpening.py][line:126][INFO] Epoch:[800]	 PSNR_WV2 = 40.6376	 BEST_PSNR = 40.6592	 BEST_epoch = 790
+[2025-04-29 22:52:14,958][train_pansharpening.py][line:126][INFO] Epoch:[810]	 PSNR_WV2 = 40.6477	 BEST_PSNR = 40.6592	 BEST_epoch = 790
+[2025-04-29 22:59:05,441][train_pansharpening.py][line:126][INFO] Epoch:[820]	 PSNR_WV2 = 40.6707	 BEST_PSNR = 40.6707	 BEST_epoch = 820
+[2025-04-29 23:06:01,634][train_pansharpening.py][line:126][INFO] Epoch:[830]	 PSNR_WV2 = 40.6685	 BEST_PSNR = 40.6707	 BEST_epoch = 820
+[2025-04-29 23:12:53,702][train_pansharpening.py][line:126][INFO] Epoch:[840]	 PSNR_WV2 = 40.6650	 BEST_PSNR = 40.6707	 BEST_epoch = 820
+[2025-04-29 23:19:47,654][train_pansharpening.py][line:126][INFO] Epoch:[850]	 PSNR_WV2 = 40.6680	 BEST_PSNR = 40.6707	 BEST_epoch = 820
+[2025-04-29 23:26:38,744][train_pansharpening.py][line:126][INFO] Epoch:[860]	 PSNR_WV2 = 40.6457	 BEST_PSNR = 40.6707	 BEST_epoch = 820
+[2025-04-29 23:33:28,614][train_pansharpening.py][line:126][INFO] Epoch:[870]	 PSNR_WV2 = 40.6453	 BEST_PSNR = 40.6707	 BEST_epoch = 820
+[2025-04-29 23:40:18,701][train_pansharpening.py][line:126][INFO] Epoch:[880]	 PSNR_WV2 = 40.6487	 BEST_PSNR = 40.6707	 BEST_epoch = 820
+[2025-04-29 23:47:09,766][train_pansharpening.py][line:126][INFO] Epoch:[890]	 PSNR_WV2 = 40.6661	 BEST_PSNR = 40.6707	 BEST_epoch = 820
+[2025-04-29 23:54:04,627][train_pansharpening.py][line:126][INFO] Epoch:[900]	 PSNR_WV2 = 40.6734	 BEST_PSNR = 40.6734	 BEST_epoch = 900
+[2025-04-30 00:00:56,604][train_pansharpening.py][line:126][INFO] Epoch:[910]	 PSNR_WV2 = 40.6662	 BEST_PSNR = 40.6734	 BEST_epoch = 900
+[2025-04-30 00:07:49,356][train_pansharpening.py][line:126][INFO] Epoch:[920]	 PSNR_WV2 = 40.6803	 BEST_PSNR = 40.6803	 BEST_epoch = 920
+[2025-04-30 00:14:43,042][train_pansharpening.py][line:126][INFO] Epoch:[930]	 PSNR_WV2 = 40.6696	 BEST_PSNR = 40.6803	 BEST_epoch = 920
+[2025-04-30 00:21:32,624][train_pansharpening.py][line:126][INFO] Epoch:[940]	 PSNR_WV2 = 40.6648	 BEST_PSNR = 40.6803	 BEST_epoch = 920
+[2025-04-30 00:28:28,102][train_pansharpening.py][line:126][INFO] Epoch:[950]	 PSNR_WV2 = 40.6681	 BEST_PSNR = 40.6803	 BEST_epoch = 920
+[2025-04-30 00:35:23,239][train_pansharpening.py][line:126][INFO] Epoch:[960]	 PSNR_WV2 = 40.6788	 BEST_PSNR = 40.6803	 BEST_epoch = 920
+[2025-04-30 00:42:16,417][train_pansharpening.py][line:126][INFO] Epoch:[970]	 PSNR_WV2 = 40.6920	 BEST_PSNR = 40.6920	 BEST_epoch = 970
+[2025-04-30 00:49:13,427][train_pansharpening.py][line:126][INFO] Epoch:[980]	 PSNR_WV2 = 40.6873	 BEST_PSNR = 40.6920	 BEST_epoch = 970
+[2025-04-30 00:56:10,806][train_pansharpening.py][line:126][INFO] Epoch:[990]	 PSNR_WV2 = 40.6921	 BEST_PSNR = 40.6921	 BEST_epoch = 990
